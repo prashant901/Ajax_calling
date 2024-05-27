@@ -1,0 +1,9 @@
+
+$("#new_post .errors").remove();
+
+<% if @post.errors.any? %>
+    $("#new_post").prepend('&lt;div class="errors"&gt;&lt;%= j render "shared/errors", object: @post %&gt;&lt;/div&gt;');
+<% else %>
+    $("#posts tbody").prepend('&lt;%= j render @post %&gt;');
+    $("#new_post")[0].reset();
+<% end %>

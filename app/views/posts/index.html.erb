@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fetch User Posts</title>
+<style>
+  /* CSS for styling */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+  }
+  header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  user-data {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  nav {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  nav ul li {
+    display: inline;
+    margin: 0 10px;
+  }
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+</style>
+<script>
+function fetchData() {
+  // Clear existing data
+  document.getElementById('user-data').innerHTML = '';
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:3000/posts.json', true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+        console.log(data); 
+        // Display the data in the user-data div
+        document.getElementById('user-data').innerText = JSON.stringify(data, null, 2);
+      } else {
+        console.error('Request failed with status:', xhr.status);
+      }
+    }
+  };
+  xhr.send();
+}
+</script>
+</head>
+<body>
+<header>
+  <h1>Fetch User Data</h1>
+</header>
+<nav>
+  <ul>
+    <li><a href="http://localhost:3000/posts">Home</a></li>
+    <li><a href="#" onclick="fetchData()">Get All Posts</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <div id="user-data"></div>
+</div>
+<footer>
+  <p>&copy; 2024 Your Company Name</p>
+</footer>
+</body>
+</html>
